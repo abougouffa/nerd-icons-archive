@@ -155,6 +155,13 @@
     (advice-remove cmd #'nerd-icons-archive--refresh))
   (nerd-icons-archive--remove-all-overlays))
 
+(defun nerd-icons-archive-refresh ()
+  "Refresh the icons in the current buffer."
+  (interactive)
+  (if nerd-icons-archive-mode
+      (nerd-icons-archive--refresh)
+    (user-error "Not in a supported major-mode")))
+
 ;;;###autoload
 (define-minor-mode nerd-icons-archive-mode
   "Display nerd-icons icon for each files in a archive buffer."
