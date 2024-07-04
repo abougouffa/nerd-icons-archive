@@ -3,7 +3,7 @@
 ;; Copyright (C) 2024 Abdelhak Bougouffa <abougouffa@fedoraproject.org>
 
 ;; Author: Abdelhak Bougouffa <abougouffa@fedoraproject.org>
-;; Version: 0.0.1
+;; Version: 0.1.0
 ;; Package-Requires: ((emacs "28.1") (nerd-icons "0.0.1"))
 ;; URL: https://github.com/abougouffa/nerd-icons-archive
 ;; Keywords: files, icons, archive
