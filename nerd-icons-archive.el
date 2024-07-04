@@ -35,7 +35,6 @@
 ;; This package is inspired by
 ;; - `nerd-icons-dired': https://github.com/rainstormstudio/nerd-icons-dired
 
-;;; dired:
 
 (require 'arc-mode)
 (require 'tar-mode)
@@ -160,10 +159,11 @@
 (define-minor-mode nerd-icons-archive-mode
   "Display nerd-icons icon for each files in a archive buffer."
   :lighter " nerd-icons-archive-mode"
-  (when (derived-mode-p 'dired-mode)
+  (when (derived-mode-p 'archive-mode 'tar-mode)
     (if nerd-icons-archive-mode
         (nerd-icons-archive--setup)
       (nerd-icons-archive--teardown))))
+
 
 (provide 'nerd-icons-archive)
 ;;; nerd-icons-archive.el ends here
