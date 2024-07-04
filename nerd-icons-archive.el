@@ -152,7 +152,7 @@
 (defun nerd-icons-archive--teardown ()
   "Functions used as advice when redisplaying buffer."
   (dolist (cmd nerd-icons-archive-refresh-commands)
-    (remove-advice cmd #'nerd-icons-archive--refresh))
+    (advice-remove cmd #'nerd-icons-archive--refresh))
   (nerd-icons-archive--remove-all-overlays))
 
 ;;;###autoload
