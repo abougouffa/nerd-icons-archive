@@ -1,0 +1,19 @@
+#+title: nerd-icons-arhive - Use nerd-icons for `archive-mode` and `tar-mode`
+#+author: Abdelhak Bougouffa
+#+language: en
+
+* Usage
+Add ~nerd-icons-archive~ to the ~load-path~
+
+#+begin_src emacs-lisp
+(require 'nerd-icons-archive)
+(add-hook 'tar-mode-hook #'nerd-icons-archive-mode)
+#+end_src
+
+Or using ~use-package~
+
+#+begin_src emacs-lisp
+(use-package nerd-icons-archive
+  :hook
+  (tar-mode . nerd-icons-archive-mode))
+#+end_src
