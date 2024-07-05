@@ -1,4 +1,4 @@
-#+title: nerd-icons-arhive - Use nerd-icons for `archive-mode` and `tar-mode`
+#+title: nerd-icons-arhive - Use nerd-icons for archive-mode and tar-mode
 #+author: Abdelhak Bougouffa
 #+language: en
 
@@ -6,14 +6,28 @@
 Add ~nerd-icons-archive~ to the ~load-path~
 
 #+begin_src emacs-lisp
+(add-to-list 'load-path "path/to/nerd-icons-archive")
 (require 'nerd-icons-archive)
-(add-hook 'tar-mode-hook #'nerd-icons-archive-mode)
+(nerd-icons-archive-mode 1)
 #+end_src
 
-Or using ~use-package~
+Or using ~use-package~ and ~straight~:
+
 
 #+begin_src emacs-lisp
 (use-package nerd-icons-archive
-  :hook
-  (tar-mode . nerd-icons-archive-mode))
+  :straight (:host github :repo "abougouffa/nerd-icons-archive")
+  :init
+  (nerd-icons-archive-mode 1))
+#+end_src
+
+Or, the recommended way, by deferring the activation of ~nerd-icons-archive-mode~ until necessary:
+
+#+begin_src emacs-lisp
+(use-package nerd-icons-archive
+  :straight (:host github :repo "abougouffa/nerd-icons-archive")
+  ;; Should be after `tar-mode' or `arc-mode', but `arc-mode' is enough since it is required by the other
+  :after arc-mode
+  :init
+  (nerd-icons-archive-mode 1))
 #+end_src
