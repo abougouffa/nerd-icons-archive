@@ -31,3 +31,7 @@ Or, the recommended way, by deferring the activation of ~nerd-icons-archive-mode
   :init
   (nerd-icons-archive-mode 1))
 #+end_src
+
+* Screenshot
+
+[[file:screenshot.png]]
