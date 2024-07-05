@@ -51,7 +51,7 @@
   :type 'number)
 
 (defcustom nerd-icons-archive-refresh-commands
-  '(tar-new-entry tar-rename-entry tar-expunge archive-expunge archive-rename-entry)
+  '(tar-new-entry tar-rename-entry tar-expunge archive-resummarize archive-mode tar-mode)
   "Refresh the buffer icons when executing these commands."
   :group 'nerd-icons
   :type '(repeat function))
@@ -147,18 +147,28 @@
   (setq-local tab-width 1)
   (dolist (cmd nerd-icons-archive-refresh-commands)
     (advice-add cmd :around #'nerd-icons-archive--refresh-advice))
-  (nerd-icons-archive--refresh))
+
+  ;; Refresh already open buffers
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (when (derived-mode-p 'archive-mode 'tar-mode)
+        (nerd-icons-archive--refresh)))))
 
 (defun nerd-icons-archive--teardown ()
   "Functions used as advice when redisplaying buffer."
   (dolist (cmd nerd-icons-archive-refresh-commands)
     (advice-remove cmd #'nerd-icons-archive--refresh))
-  (nerd-icons-archive--remove-all-overlays))
+
+  ;; Refresh already open buffers
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (when (derived-mode-p 'archive-mode 'tar-mode)
+        (nerd-icons-archive--remove-all-overlays)))))
 
 (defun nerd-icons-archive-refresh ()
   "Refresh the icons in the current buffer."
   (interactive)
-  (if nerd-icons-archive-mode
+  (if (and nerd-icons-archive-mode (derived-mode-p 'archive-mode 'tar-mode))
       (nerd-icons-archive--refresh)
     (user-error "Not in a supported major-mode")))
 
@@ -166,10 +176,10 @@
 (define-minor-mode nerd-icons-archive-mode
   "Display nerd-icons icon for each files in a archive buffer."
   :lighter " nerd-icons-archive-mode"
-  (when (derived-mode-p 'archive-mode 'tar-mode)
-    (if nerd-icons-archive-mode
-        (nerd-icons-archive--setup)
-      (nerd-icons-archive--teardown))))
+  :global t
+  (if nerd-icons-archive-mode
+      (nerd-icons-archive--setup)
+    (nerd-icons-archive--teardown)))
 
 
 (provide 'nerd-icons-archive)
